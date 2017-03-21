@@ -1,28 +1,28 @@
 # SolidusSupport
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/solidus_support`. To experiment with that code, run `bin/console` for an interactive prompt.
+This gem holds some common functionality for Solidus Extensions.
 
-TODO: Delete this and the text above, and describe your gem
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'solidus_support'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install solidus_support
+It has some utilities to make it easier to support multiple versions of Solidus.
 
 ## Usage
 
-TODO: Write usage instructions here
+### `SolidusSupport::Migration`
+
+Rails >= 5 introduced the concept of specifying what rails version your migration was written for, like `ActiveRecord::Migration[5.0]`.
+Not specifying a version is deprecated in Rails 5.0 and removed in rails 5.1.
+This wasn't backported to Rails 4.2, but Rails 4.2 _is_ Rails 4.2. So we provide this helper.
+
+``` ruby
+# On Rails 4.2
+SolidusSupport::Migration[4.2] # returns `ActiveRecord::Migration`
+SolidusSupport::Migration[5.0] # errors
+
+# On Rails 5.0
+SolidusSupport::Migration[4.2] # same as `ActiveRecord::Migration[4.2]`
+SolidusSupport::Migration[5.0] # same as `ActiveRecord::Migration[5.0]`
+```
+
+There's no reason to use `SolidusSupport::Migration[5.0]` over `ActiveRecord::Migration[5.0]`, but it is provided.
 
 ## Development
 
@@ -32,5 +32,5 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/jhawthorn/solidus_support.
+Bug reports and pull requests are welcome on GitHub at https://github.com/solidusio/solidus_support.
 
