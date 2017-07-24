@@ -15,5 +15,13 @@ module SolidusSupport
         Gem::Specification.detect{|x| x.name == "solidus_core" }.version
       end
     end
+
+    def payment_source_parent_class
+      if solidus_gem_version > Gem::Version.new('2.2.x')
+        Spree::PaymentSource
+      else
+        Spree::Base
+      end
+    end
   end
 end
