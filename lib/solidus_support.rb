@@ -23,5 +23,17 @@ module SolidusSupport
         Spree::Base
       end
     end
+
+    def frontend_available?
+      defined?(Spree::Frontend::Engine)
+    end
+
+    def backend_available?
+      defined?(Spree::Backend::Engine)
+    end
+
+    def api_available?
+      defined?(Spree::Api::Engine)
+    end
   end
 end
