@@ -23,7 +23,14 @@ RSpec.configure do |config|
   config.when_first_matching_example_defined(type: :feature) do
     config.before :suite do
       # Preload assets
-      Rails.application.precompiled_assets
+      if Rails.application.respond_to?(:precompiled_assets)
+        Rails.application.precompiled_assets
+      else
+        # For older sprockets 2.x
+        Rails.application.config.assets.precompile.each do |asset|
+          Rails.application.assets.find_asset(asset)
+        end
+      end
     end
   end
 end
