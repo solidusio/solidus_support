@@ -24,6 +24,37 @@ SolidusSupport::Migration[5.0] # same as `ActiveRecord::Migration[5.0]`
 
 There's no reason to use `SolidusSupport::Migration[5.0]` over `ActiveRecord::Migration[5.0]`, but it is provided.
 
+
+### `Testing Helpers`
+
+This gem provides some helpers for RSpec to setup the extensions test
+environment easily.
+
+Into your spec/spec_helper.rb or spec/rails_helper you can:
+
+#### Load all helpers together:
+
+```ruby
+require 'solidus_support/testing/all'
+```
+
+#### Load helpers one by one:
+
+```ruby
+require 'solidus_support/testing/spec_helper'
+require 'solidus_support/testing/rails_helper'
+require 'solidus_support/testing/feature_helper'
+```
+
+This option can be useful if, for example, you need to use the support
+`feature_helper` without using the support `spec_helper`:
+
+```ruby
+require 'spec_helper'
+require 'solidus_support/testing/rails_helper'
+require 'solidus_support/testing/feature_helper'
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
@@ -33,4 +64,3 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/solidusio/solidus_support.
-

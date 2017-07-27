@@ -2,7 +2,7 @@
 #
 # Can be required from an extension's spec/spec_helper.rb
 #
-#     require 'solidus_support/extension/spec_helper.rb'
+#     require 'solidus_support/testing/spec_helper'
 #
 
 RSpec.configure do |config|
