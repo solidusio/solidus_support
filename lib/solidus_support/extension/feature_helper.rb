@@ -5,8 +5,6 @@
 #     require 'solidus_support/extension/feature_helper.rb'
 #
 
-require 'solidus_support/extension/rails_helper'
-
 require 'capybara-screenshot/rspec'
 require 'capybara/poltergeist'
 

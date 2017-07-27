@@ -5,8 +5,6 @@
 #     require 'solidus_support/extension/rails_helper.rb'
 #
 
-require 'solidus_support/extension/spec_helper'
-
 require 'rspec/rails'
 require 'database_cleaner'
 require 'ffaker'
