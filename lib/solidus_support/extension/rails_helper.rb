@@ -14,6 +14,7 @@ require 'ffaker'
 require 'spree/testing_support/authorization_helpers'
 require 'spree/testing_support/factories'
 require 'spree/testing_support/url_helpers'
+require 'spree/testing_support/preferences'
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
@@ -21,6 +22,8 @@ RSpec.configure do |config|
   # visit spree.admin_path
   # current_path.should eql(spree.products_path)
   config.include Spree::TestingSupport::UrlHelpers
+
+  config.include Spree::TestingSupport::Preferences
 
   # Ensure Suite is set to use transactions for speed.
   config.before :suite do
@@ -31,6 +34,8 @@ RSpec.configure do |config|
   config.before :each do
     DatabaseCleaner.strategy = RSpec.current_example.metadata[:js] ? :truncation : :transaction
     DatabaseCleaner.start
+
+    reset_spree_preferences
   end
 
   # After each spec clean the database.
