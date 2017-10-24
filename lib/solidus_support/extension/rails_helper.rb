@@ -17,7 +17,7 @@ require 'spree/testing_support/url_helpers'
 require 'spree/testing_support/preferences'
 
 RSpec.configure do |config|
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
 
   # visit spree.admin_path
   # current_path.should eql(spree.products_path)
