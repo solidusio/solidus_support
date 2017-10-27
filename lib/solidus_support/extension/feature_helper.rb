@@ -2,7 +2,7 @@
 #
 # Can be required from an extension's spec/feature_helper.rb
 #
-#     require 'solidus_support/extension/feature_helper.rb'
+#     require 'solidus_support/extension/feature_helper'
 #
 
 require 'solidus_support/extension/rails_helper'
