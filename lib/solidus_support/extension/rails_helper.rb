@@ -25,21 +25,18 @@ RSpec.configure do |config|
 
   config.include Spree::TestingSupport::Preferences
 
-  # Ensure Suite is set to use transactions for speed.
   config.before :suite do
     DatabaseCleaner.clean_with :truncation
   end
 
-  # Before each spec check if it is a Javascript test and switch between using database transactions or not where necessary.
-  config.before :each do
+  # Around each spec check if it is a Javascript test and switch between using database transactions or not where necessary.
+  config.around(:each) do |example|
     DatabaseCleaner.strategy = RSpec.current_example.metadata[:js] ? :truncation : :transaction
-    DatabaseCleaner.start
 
-    reset_spree_preferences
-  end
+    DatabaseCleaner.cleaning do
+      reset_spree_preferences
 
-  # After each spec clean the database.
-  config.after :each do
-    DatabaseCleaner.clean
+      example.run
+    end
   end
 end
