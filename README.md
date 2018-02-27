@@ -24,6 +24,42 @@ SolidusSupport::Migration[5.0] # same as `ActiveRecord::Migration[5.0]`
 
 There's no reason to use `SolidusSupport::Migration[5.0]` over `ActiveRecord::Migration[5.0]`, but it is provided.
 
+### Testing Helpers
+
+This gem provides some useful helpers for RSpec to setup an extension's test
+environment easily.
+
+Into your extension's spec/spec_helper.rb:
+
+```ruby
+require "solidus_support/extension/feature_helper"
+```
+
+This helper loads configuration needed to run extensions feature specs
+correctly, setting up Capybara and configuring Rails test application
+to precompile assets before the first feature spec.
+
+This helper requires the `rails_helper`, also provided by this gem and
+requireable as a stand-alone helper.
+
+By doing:
+
+```ruby
+require "solidus_support/extension/rails_helper"
+```
+
+extension's test suite will have all Rails related tests configuration,
+like authorization helpers, Solidus core factories, url helpers, and
+other helpers to easily work with Solidus Config.
+
+This `rails_helper` in turn requires the basic `spec_helper`, which is
+responsible to load a basic RSpec configuration, which could be needed
+in all extensions. It is also requireable as a stand-alone helper with:
+
+```ruby
+require "solidus_support/extension/spec_helper"
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
@@ -33,4 +69,3 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/solidusio/solidus_support.
-
