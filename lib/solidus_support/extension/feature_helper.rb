@@ -6,15 +6,37 @@
 #
 
 require 'solidus_support/extension/rails_helper'
-
+require 'capybara'
 require 'capybara-screenshot/rspec'
-require 'capybara/poltergeist'
 
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, js_errors: true, timeout: 90)
+begin
+  require 'capybara/poltergeist'
+  Capybara.register_driver :poltergeist do |app|
+    Capybara::Poltergeist::Driver.new(app, js_errors: true, timeout: 90)
+  end
+  Capybara.javascript_driver = :poltergeist
+rescue LoadError
+  @missing_poltergeist = true
 end
 
-Capybara.javascript_driver = :poltergeist
+begin
+  require 'selenium/webdriver'
+  Capybara.javascript_driver = :selenium_chrome_headless
+rescue LoadError
+  @missing_webdriver = true
+end
+
+if @missing_poltergeist && @missing_webdriver
+  fail <<-WARN
+
+Neither 'poltergeist' nor 'selenium-webdriver' are installed.
+We cannot setup a Capybara driver for you.
+
+Please install the 'poltergeist' or 'selenium-webdriver' gem
+
+WARN
+end
+
 Capybara.default_max_wait_time = 10
 
 require 'spree/testing_support/capybara_ext'
