@@ -16,8 +16,21 @@ module SolidusSupport
       end
     end
 
+    def new_gateway_code?
+      first_version_with_new_gateway_code = Gem::Requirement.new('>= 2.3')
+      first_version_with_new_gateway_code.satisfied_by?(solidus_gem_version)
+    end
+
+    def payment_gateway_parent_class
+      if new_gateway_code?
+        Spree::PaymentMethod
+      else
+        Spree::Gateway
+      end
+    end
+
     def payment_source_parent_class
-      if solidus_gem_version > Gem::Version.new('2.2.x')
+      if new_gateway_code?
         Spree::PaymentSource
       else
         Spree::Base
