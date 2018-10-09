@@ -29,7 +29,8 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with :truncation
   end
 
-  # Around each spec check if it is a Javascript test and switch between using database transactions or not where necessary.
+  # Around each spec check if it is a Javascript test and switch between using
+  # database transactions or not where necessary.
   config.around(:each) do |example|
     DatabaseCleaner.strategy = RSpec.current_example.metadata[:js] ? :truncation : :transaction
 

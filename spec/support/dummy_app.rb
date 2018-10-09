@@ -11,7 +11,7 @@ Bundler.require(:default, :test)
 module DummyApp
   class Application < ::Rails::Application
     config.eager_load               = false
-    config.paths["config/database"] = File.expand_path('../dummy_app/database.yml', __FILE__)
+    config.paths['config/database'] = File.expand_path('dummy_app/database.yml', __dir__)
     config.active_record.sqlite3.represent_boolean_as_integer = true
   end
 end
