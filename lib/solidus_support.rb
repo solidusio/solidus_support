@@ -24,6 +24,18 @@ module SolidusSupport
       end
     end
 
+    def payment_method_parent_class(credit_card: false)
+      if credit_card
+        if solidus_gem_version >= Gem::Version.new('2.3.x')
+          Spree::PaymentMethod::CreditCard
+        else
+          Spree::Gateway
+        end
+      else
+        Spree::PaymentMethod
+      end
+    end
+
     def frontend_available?
       defined?(Spree::Frontend::Engine)
     end
