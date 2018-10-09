@@ -16,6 +16,14 @@ module SolidusSupport
       end
     end
 
+    def payment_gateway_parent_class
+      if solidus_gem_version > Gem::Version.new('2.2.x')
+        Spree::PaymentMethod
+      else
+        Spree::Gateway
+      end
+    end
+
     def payment_source_parent_class
       if solidus_gem_version > Gem::Version.new('2.2.x')
         Spree::PaymentSource
