@@ -9,7 +9,6 @@ require 'solidus_support/extension/spec_helper'
 
 require 'rspec/rails'
 require 'database_cleaner'
-require 'ffaker'
 
 require 'spree/testing_support/authorization_helpers'
 require 'spree/testing_support/factories'
