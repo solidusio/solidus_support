@@ -8,13 +8,21 @@
 require 'solidus_support/extension/rails_helper'
 
 require 'capybara-screenshot/rspec'
-require 'capybara/poltergeist'
+require 'selenium/webdriver'
 
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, js_errors: true, timeout: 90)
+Capybara.register_driver :selenium_chrome_headless do |app|
+  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+    chromeOptions: { args: %w[headless start-maximized] }
+  )
+
+  Capybara::Selenium::Driver.new(
+    app,
+    browser: :chrome,
+    desired_capabilities: capabilities
+  )
 end
 
-Capybara.javascript_driver = :poltergeist
+Capybara.javascript_driver = :selenium_chrome_headless
 Capybara.default_max_wait_time = 10
 
 require 'spree/testing_support/capybara_ext'
