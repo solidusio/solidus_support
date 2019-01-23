@@ -22,7 +22,7 @@ Capybara.register_driver :selenium_chrome_headless do |app|
   )
 end
 
-Capybara.javascript_driver = :selenium_chrome_headless
+Capybara.javascript_driver = (ENV['CAPYBARA_DRIVER'] || :selenium_chrome_headless).to_sym
 Capybara.default_max_wait_time = 10
 
 require 'spree/testing_support/capybara_ext'
