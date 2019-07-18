@@ -15,6 +15,7 @@ require 'spree/testing_support/authorization_helpers'
 require 'spree/testing_support/factories'
 require 'spree/testing_support/url_helpers'
 require 'spree/testing_support/preferences'
+require 'solidus_support/testing_support/preferences'
 
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
@@ -24,6 +25,7 @@ RSpec.configure do |config|
   config.include Spree::TestingSupport::UrlHelpers
 
   config.include Spree::TestingSupport::Preferences
+  config.include SolidusSupport::TestingSupport::Preferences
 
   config.before :suite do
     DatabaseCleaner.clean_with :truncation
