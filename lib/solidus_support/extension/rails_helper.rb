@@ -35,7 +35,7 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = RSpec.current_example.metadata[:js] ? :truncation : :transaction
 
     DatabaseCleaner.cleaning do
-      reset_spree_preferences
+      reset_spree_preferences unless SolidusSupport.reset_spree_preferences_deprecated?
 
       example.run
     end
