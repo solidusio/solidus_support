@@ -60,6 +60,26 @@ in all extensions. It is also requireable as a stand-alone helper with:
 require "solidus_support/extension/spec_helper"
 ```
 
+### Coverage Collection
+
+The gem also includes a SimpleCov configuration that will send your test
+coverage information directly to Codecov.io. Simply add this at the top
+of your `spec/spec_helper.rb`:
+
+```ruby
+require "solidus_support/extension/coverage"
+```
+
+**Note: Make sure to add this at the VERY TOP of your spec_helper,
+otherwise you'll get skewed coverage reports!**
+
+If your extension is in a public repo and being tested on Travis or
+CircleCI, there's nothing else you need to do - you'll get coverage
+reports for free!
+
+If your setup is more complex, look at the [SimpleCov](https://github.com/colszowka/simplecov)
+and [codecov-ruby](https://github.com/codecov/codecov-ruby) docs.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
