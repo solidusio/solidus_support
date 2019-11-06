@@ -16,11 +16,6 @@ module SolidusSupport
       end
     end
 
-    def reset_spree_preferences_deprecated?
-      first_version_without_reset = Gem::Requirement.new('>= 2.9')
-      first_version_without_reset.satisfied_by?(solidus_gem_version)
-    end
-
     def new_gateway_code?
       first_version_with_new_gateway_code = Gem::Requirement.new('>= 2.3')
       first_version_with_new_gateway_code.satisfied_by?(solidus_gem_version)
