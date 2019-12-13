@@ -6,5 +6,6 @@ gem 'solidus_core', github: 'solidusio/solidus', branch: branch
 # Specify your gem's dependencies in solidus_support.gemspec
 gemspec
 
+gem 'solidus_extension_dev_tools', github: 'solidusio-contrib/solidus_extension_dev_tools'
 gem 'sprockets-rails'
 gem 'sqlite3'
