@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'solidus_support/version'
 require 'solidus_support/migration'
 require 'solidus_support/engine_extensions'
