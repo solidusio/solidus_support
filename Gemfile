@@ -9,5 +9,6 @@ gem 'solidus_core', github: 'solidusio/solidus', branch: branch
 gemspec
 
 gem 'solidus_extension_dev_tools', github: 'solidusio-contrib/solidus_extension_dev_tools'
+gem 'sprockets', '~> 3'
 gem 'sprockets-rails'
 gem 'sqlite3'
