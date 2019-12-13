@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe SolidusSupport do
   describe '.payment_method_parent_class' do
     subject { described_class.payment_method_parent_class(credit_card: credit_card) }
@@ -10,32 +12,34 @@ RSpec.describe SolidusSupport do
       end
     end
 
-    context 'For Solidus < 2.3' do
+    context 'with Solidus < 2.3' do
       let(:solidus_version) { '2.2.1' }
 
       it { is_expected.to eq(Spree::Gateway) }
     end
 
-    context 'For Solidus >= 2.3' do
+    context 'with Solidus >= 2.3' do
       let(:solidus_version) { '2.3.1' }
 
       it { is_expected.to eq(Spree::PaymentMethod) }
     end
 
+    # rubocop:disable RSpec/NestedGroups
     context 'with credit_card: true' do
       let(:credit_card) { true }
 
-      context 'For Solidus < 2.3' do
+      context 'with Solidus < 2.3' do
         let(:solidus_version) { '2.2.1' }
 
         it { is_expected.to eq(Spree::Gateway) }
       end
 
-      context 'For Solidus >= 2.3' do
+      context 'with Solidus >= 2.3' do
         let(:solidus_version) { '2.3.1' }
 
         it { is_expected.to eq(Spree::PaymentMethod::CreditCard) }
       end
     end
+    # rubocop:enable RSpec/NestedGroups
   end
 end
