@@ -1,4 +1,16 @@
+<% if ENV['DB'] == 'postgresql' %>
+test:
+  adapter: postgresql
+  database: circle_test
+  username: root
+<% elsif ENV['DB'] == 'mysql' %>
+test:
+  adapter: mysql2
+  database: circle_test
+  username: root
+<% else %>
 test:
   adapter: sqlite3
   database: ':memory:'
   timeout: 10000
+<% end %>

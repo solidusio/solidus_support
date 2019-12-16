@@ -9,5 +9,14 @@ gem 'solidus_core', github: 'solidusio/solidus', branch: branch
 gemspec
 
 gem 'solidus_extension_dev_tools', github: 'solidusio-contrib/solidus_extension_dev_tools'
+gem 'sprockets', '~> 3'
 gem 'sprockets-rails'
-gem 'sqlite3'
+
+case ENV['DB']
+when 'postgresql'
+  gem 'pg'
+when 'mysql'
+  gem 'mysql2'
+else
+  gem 'sqlite3'
+end
