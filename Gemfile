@@ -8,7 +8,6 @@ gem 'solidus_core', github: 'solidusio/solidus', branch: branch
 # Specify your gem's dependencies in solidus_support.gemspec
 gemspec
 
-gem 'solidus_dev_support', github: 'solidusio-contrib/solidus_dev_support'
 gem 'sprockets', '~> 3'
 gem 'sprockets-rails'
 

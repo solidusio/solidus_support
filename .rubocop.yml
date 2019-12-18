@@ -1,2 +1,2 @@
 require:
-  - solidus_extension_dev_tools/rubocop
+  - solidus_dev_support/rubocop
