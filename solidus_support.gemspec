@@ -22,5 +22,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'rubocop-rspec'
   spec.add_development_dependency 'solidus_core'
-  spec.add_development_dependency 'solidus_extension_dev_tools'
+  spec.add_development_dependency 'solidus_dev_support'
 end

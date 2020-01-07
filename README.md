@@ -3,7 +3,7 @@
 This gem contains common runtime functionality for Solidus extensions.
 
 If you are looking for development tools instead, see
-[solidus_extension_dev_tools](https://github.com/solidusio-contrib/solidus_extension_dev_tools).
+[solidus_dev_support](https://github.com/solidusio-contrib/solidus_dev_support).
 
 ## Usage
 
