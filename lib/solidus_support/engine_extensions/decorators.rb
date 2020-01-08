@@ -28,7 +28,7 @@ module SolidusSupport
           # and won't be loaded by default. We need them to be
           # executed anyway to extend exisiting classes.
           Dir.glob(base_path.join('**/*.rb')) do |decorator_path|
-            Rails.configuration.cache_classes ? require(decorator_path) : load(decorator_path)
+            require_dependency(decorator_path)
           end
         end
       end
