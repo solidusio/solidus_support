@@ -14,7 +14,7 @@ module SolidusSupport
         def activate
           base_path = root.join('app/decorators')
 
-          if Rails.respond_to?(:autoloaders)
+          if Rails.respond_to?(:autoloaders) && Rails.autoloaders.main
             # Add decorators folder to the Rails autoloader. This
             # allows Zeitwerk to resolve decorators paths correctly,
             # when used.
