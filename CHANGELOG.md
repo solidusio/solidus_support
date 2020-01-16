@@ -1,5 +1,21 @@
 # Changelog
 
+## [v0.4.1](https://github.com/solidusio/solidus_support/tree/v0.4.1) (2020-01-16)
+
+[Full Changelog](https://github.com/solidusio/solidus_support/compare/v0.4.0...v0.4.1)
+
+**Closed issues:**
+
+- Should use require\_dependency instead of require/load [\#34](https://github.com/solidusio/solidus_support/issues/34)
+- Add a LICENSE [\#20](https://github.com/solidusio/solidus_support/issues/20)
+
+**Merged pull requests:**
+
+- Update solidus\_dev\_support [\#41](https://github.com/solidusio/solidus_support/pull/41) ([aldesantis](https://github.com/aldesantis))
+- Replace manual cache checks w/ require\_dependency [\#39](https://github.com/solidusio/solidus_support/pull/39) ([elia](https://github.com/elia))
+- Fixes isse when zeitwerk is not enabled [\#38](https://github.com/solidusio/solidus_support/pull/38) ([softr8](https://github.com/softr8))
+- Spring cleaning [\#33](https://github.com/solidusio/solidus_support/pull/33) ([aldesantis](https://github.com/aldesantis))
+
 ## [v0.4.0](https://github.com/solidusio/solidus_support/tree/v0.4.0) (2019-12-16)
 
 [Full Changelog](https://github.com/solidusio/solidus_support/compare/v0.3.2...v0.4.0)
