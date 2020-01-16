@@ -1,23 +1,18 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
-
-git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 branch = ENV.fetch('SOLIDUS_BRANCH', 'master')
 gem 'solidus_core', github: 'solidusio/solidus', branch: branch
 
-# Specify your gem's dependencies in solidus_support.gemspec
-gemspec
-
-gem 'sprockets', '~> 3'
-gem 'sprockets-rails'
-
 case ENV['DB']
-when 'postgresql'
-  gem 'pg'
 when 'mysql'
   gem 'mysql2'
+when 'postgresql'
+  gem 'pg'
 else
   gem 'sqlite3'
 end
+
+gemspec
