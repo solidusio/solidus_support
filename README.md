@@ -38,7 +38,7 @@ module SolidusExtensionName
   class Engine < Rails::Engine
     engine_name 'solidus_extension_name'
 
-    include SolidusSupport::EngineExtensions::Decorators
+    include SolidusSupport::EngineExtensions
 
     # ...
   end
@@ -59,8 +59,8 @@ config.to_prepare(&method(:activate).to_proc)
 
 #### Loading files conditionally
 
-If you include `EngineExtensions::Decorators` in your extension and structure your files according
-to the expected paths, they will be loaded automagically only when the relevant Solidus engines are
+If you include `EngineExtensions` in your extension and structure your files according to the
+expected paths, they will be loaded automagically only when the relevant Solidus engines are
 available.
 
 Here's what an example structure may look like:
