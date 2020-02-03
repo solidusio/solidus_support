@@ -38,7 +38,7 @@ module SolidusExtensionName
   class Engine < Rails::Engine
     engine_name 'solidus_extension_name'
 
-    include SolidusSupport::EngineExtensions::Decorators
+    include SolidusSupport::EngineExtensions
 
     # ...
   end
@@ -56,6 +56,26 @@ end
 
 config.to_prepare(&method(:activate).to_proc)
 ```
+
+#### Loading files conditionally
+
+If you include `EngineExtensions` in your extension and structure your files according to the
+expected paths, they will be loaded automagically only when the relevant Solidus engines are
+available.
+
+Here's what an example structure may look like:
+
+- `lib/views/backend`: will only be added to the view paths when `solidus_backend` is available.
+- `lib/controllers/backend`: will only be added to the controller paths when `solidus_backend` is
+  available.
+- `lib/decorators/backend`: will only be added to the decorator paths when `solidus_backend` is
+  available.
+
+The same goes for `frontend` and `api`.
+
+We strongly recommend following this structure and making your extensions so that they're not
+dependent on anything other than `solidus_core`, only augmenting the functionality of the other
+engines when they are available.
 
 ## Development
 
