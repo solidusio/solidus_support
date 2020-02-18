@@ -1,5 +1,14 @@
 # Changelog
 
+## [v0.5.0](https://github.com/solidusio/solidus_support/tree/v0.5.0) (2020-02-18)
+
+[Full Changelog](https://github.com/solidusio/solidus_support/compare/v0.4.1...v0.5.0)
+
+**Merged pull requests:**
+
+- Load Solidus engine extension files automatically [\#42](https://github.com/solidusio/solidus_support/pull/42) ([aldesantis](https://github.com/aldesantis))
+- Deprecate SolidusSupport.solidus\_gem\_version [\#37](https://github.com/solidusio/solidus_support/pull/37) ([kennyadsl](https://github.com/kennyadsl))
+
 ## [v0.4.1](https://github.com/solidusio/solidus_support/tree/v0.4.1) (2020-01-16)
 
 [Full Changelog](https://github.com/solidusio/solidus_support/compare/v0.4.0...v0.4.1)
@@ -33,6 +42,7 @@
 - Remove support for testing and extensions [\#28](https://github.com/solidusio/solidus_support/pull/28) ([MinasMazar](https://github.com/MinasMazar))
 - Add SolidusSupport::EngineExtension::Decorators to load decorators [\#27](https://github.com/solidusio/solidus_support/pull/27) ([kennyadsl](https://github.com/kennyadsl))
 - Add support for Codecov [\#24](https://github.com/solidusio/solidus_support/pull/24) ([aldesantis](https://github.com/aldesantis))
+- Add `capybara-screenshot` dependency [\#23](https://github.com/solidusio/solidus_support/pull/23) ([spaghetticode](https://github.com/spaghetticode))
 
 ## [v0.3.2](https://github.com/solidusio/solidus_support/tree/v0.3.2) (2019-08-08)
 
@@ -40,7 +50,6 @@
 
 **Merged pull requests:**
 
-- Add `capybara-screenshot` dependency [\#23](https://github.com/solidusio/solidus_support/pull/23) ([spaghetticode](https://github.com/spaghetticode))
 - Do not reset spree preferences starting from v2.9 [\#22](https://github.com/solidusio/solidus_support/pull/22) ([kennyadsl](https://github.com/kennyadsl))
 - Update Travis config [\#19](https://github.com/solidusio/solidus_support/pull/19) ([aitbw](https://github.com/aitbw))
 - Override Capybara JS driver via `CAPYBARA\_DRIVER` ENV variable [\#18](https://github.com/solidusio/solidus_support/pull/18) ([spaghetticode](https://github.com/spaghetticode))
