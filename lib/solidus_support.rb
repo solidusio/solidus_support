@@ -8,15 +8,12 @@ require 'solidus_core'
 module SolidusSupport
   class << self
     def solidus_gem_version
-      if Spree.respond_to?(:solidus_gem_version)
-        Spree.solidus_gem_version
-      elsif Spree.respond_to?(:gem_version)
-        # 1.1 doesn't have solidus_gem_version
-        Gem::Version.new(Spree.solidus_version)
-      else
-        # 1.0 doesn't have gem_version
-        Gem::Specification.detect { |x| x.name == 'solidus_core' }.version
-      end
+      ActiveSupport::Deprecation.warn <<-WARN.squish, caller
+        SolidusSupport.solidus_gem_version is deprecated and will be removed
+        in solidus_support 1.0. Please use Spree.solidus_gem_version instead.
+      WARN
+
+      Spree.solidus_gem_version
     end
 
     def reset_spree_preferences_deprecated?
