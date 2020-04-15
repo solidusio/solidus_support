@@ -9,6 +9,10 @@ module SolidusSupport
       engine.extend ClassMethods
 
       engine.class_eval do
+        solidus_decorators_root.glob('*') do |decorators_folder|
+          config.autoload_paths += [decorators_folder]
+        end
+
         config.to_prepare(&method(:activate))
 
         enable_solidus_engine_support('backend') if SolidusSupport.backend_available?
@@ -19,14 +23,6 @@ module SolidusSupport
 
     module ClassMethods
       def activate
-        if Rails.respond_to?(:autoloaders) && Rails.autoloaders.main
-          # Add decorators folder to the Rails autoloader. This tells Zeitwerk to treat paths
-          # such as app/decorators/controllers as roots.
-          solidus_decorators_root.glob('*') do |decorators_folder|
-            Rails.autoloaders.main.push_dir(decorators_folder)
-          end
-        end
-
         load_solidus_decorators_from(solidus_decorators_root)
       end
 
