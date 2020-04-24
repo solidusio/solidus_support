@@ -59,10 +59,13 @@ module SolidusSupport
         paths['app/controllers'] << "lib/controllers/#{engine}"
         paths['app/views'] << "lib/views/#{engine}"
 
+        path = root.join("lib/decorators/#{engine}")
+
+        config.autoload_paths += path.glob('*')
+
         engine_context = self
         config.to_prepare do
           engine_context.instance_eval do
-            path = root.join("lib/decorators/#{engine}")
             load_solidus_decorators_from(path)
           end
         end
