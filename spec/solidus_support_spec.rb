@@ -7,7 +7,7 @@ RSpec.describe SolidusSupport do
     let(:credit_card) { nil }
 
     before do
-      allow(described_class).to receive(:solidus_gem_version) do
+      allow(Spree).to receive(:solidus_gem_version) do
         Gem::Version.new(solidus_version)
       end
     end
