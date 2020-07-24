@@ -1,5 +1,34 @@
 # Changelog
 
+## [v0.6.0](https://github.com/solidusio/solidus_support/tree/v0.6.0) (2020-07-24)
+
+[Full Changelog](https://github.com/solidusio/solidus_support/compare/v0.5.1...v0.6.0)
+
+**Implemented enhancements:**
+
+- Autoload Solidus Event subscribers from extensions [\#45](https://github.com/solidusio/solidus_support/pull/45) ([spaghetticode](https://github.com/spaghetticode))
+
+**Fixed bugs:**
+
+- Load event subscribers only when Spree::Event is available [\#47](https://github.com/solidusio/solidus_support/pull/47) ([spaghetticode](https://github.com/spaghetticode))
+
+**Closed issues:**
+
+- Namespace Conflicts [\#48](https://github.com/solidusio/solidus_support/issues/48)
+
+**Merged pull requests:**
+
+- Stop using SolidusSupport.solidus\_gem\_version [\#46](https://github.com/solidusio/solidus_support/pull/46) ([elia](https://github.com/elia))
+- Add frontend/backend/api decorators to autoload path [\#44](https://github.com/solidusio/solidus_support/pull/44) ([kennyadsl](https://github.com/kennyadsl))
+
+## [v0.5.1](https://github.com/solidusio/solidus_support/tree/v0.5.1) (2020-04-15)
+
+[Full Changelog](https://github.com/solidusio/solidus_support/compare/v0.5.0...v0.5.1)
+
+**Merged pull requests:**
+
+- Push decorators to autoload path using config.autoload\_paths [\#43](https://github.com/solidusio/solidus_support/pull/43) ([kennyadsl](https://github.com/kennyadsl))
+
 ## [v0.5.0](https://github.com/solidusio/solidus_support/tree/v0.5.0) (2020-02-18)
 
 [Full Changelog](https://github.com/solidusio/solidus_support/compare/v0.4.1...v0.5.0)
@@ -42,7 +71,6 @@
 - Remove support for testing and extensions [\#28](https://github.com/solidusio/solidus_support/pull/28) ([MinasMazar](https://github.com/MinasMazar))
 - Add SolidusSupport::EngineExtension::Decorators to load decorators [\#27](https://github.com/solidusio/solidus_support/pull/27) ([kennyadsl](https://github.com/kennyadsl))
 - Add support for Codecov [\#24](https://github.com/solidusio/solidus_support/pull/24) ([aldesantis](https://github.com/aldesantis))
-- Add `capybara-screenshot` dependency [\#23](https://github.com/solidusio/solidus_support/pull/23) ([spaghetticode](https://github.com/spaghetticode))
 
 ## [v0.3.2](https://github.com/solidusio/solidus_support/tree/v0.3.2) (2019-08-08)
 
@@ -50,6 +78,7 @@
 
 **Merged pull requests:**
 
+- Add `capybara-screenshot` dependency [\#23](https://github.com/solidusio/solidus_support/pull/23) ([spaghetticode](https://github.com/spaghetticode))
 - Do not reset spree preferences starting from v2.9 [\#22](https://github.com/solidusio/solidus_support/pull/22) ([kennyadsl](https://github.com/kennyadsl))
 - Update Travis config [\#19](https://github.com/solidusio/solidus_support/pull/19) ([aitbw](https://github.com/aitbw))
 - Override Capybara JS driver via `CAPYBARA\_DRIVER` ENV variable [\#18](https://github.com/solidusio/solidus_support/pull/18) ([spaghetticode](https://github.com/spaghetticode))
@@ -76,6 +105,7 @@
 
 - Rename FactoryBot [\#6](https://github.com/solidusio/solidus_support/pull/6) ([tvdeyen](https://github.com/tvdeyen))
 - Remove unused files [\#5](https://github.com/solidusio/solidus_support/pull/5) ([tvdeyen](https://github.com/tvdeyen))
+- Add a basic spec\_helper for extensions to include [\#2](https://github.com/solidusio/solidus_support/pull/2) ([jhawthorn](https://github.com/jhawthorn))
 
 ## [v0.1.5](https://github.com/solidusio/solidus_support/tree/v0.1.5) (2017-07-27)
 
@@ -88,10 +118,6 @@
 ## [v0.1.3](https://github.com/solidusio/solidus_support/tree/v0.1.3) (2017-07-26)
 
 [Full Changelog](https://github.com/solidusio/solidus_support/compare/v0.1.2...v0.1.3)
-
-**Merged pull requests:**
-
-- Add a basic spec\_helper for extensions to include [\#2](https://github.com/solidusio/solidus_support/pull/2) ([jhawthorn](https://github.com/jhawthorn))
 
 ## [v0.1.2](https://github.com/solidusio/solidus_support/tree/v0.1.2) (2017-07-24)
 
