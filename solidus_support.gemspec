@@ -28,6 +28,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'rubocop'
   s.add_development_dependency 'rubocop-rspec'
-  s.add_development_dependency 'solidus_core'
   s.add_development_dependency 'solidus_dev_support'
 end
