@@ -36,7 +36,12 @@ module SolidusSupport
           path.glob("**/*_subscriber.rb") do |subscriber_path|
             require_dependency(subscriber_path)
           end
-          Spree::Event.subscribers.each(&:subscribe!)
+
+          if Spree::Event.respond_to?(:activate_all_subscribers)
+            Spree::Event.activate_all_subscribers
+          else
+            Spree::Event.subscribers.each(&:subscribe!)
+          end
         end
       end
 
