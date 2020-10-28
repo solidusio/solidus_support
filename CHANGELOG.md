@@ -1,8 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/solidusio/solidus_support/tree/HEAD)
+## [v0.7.0](https://github.com/solidusio/solidus_support/tree/v0.7.0) (2020-10-28)
 
-[Full Changelog](https://github.com/solidusio/solidus_support/compare/v0.6.0...HEAD)
+[Full Changelog](https://github.com/solidusio/solidus_support/compare/v0.6.0...v0.7.0)
 
 **Closed issues:**
 
