@@ -1,5 +1,19 @@
 # Changelog
 
+## [Unreleased](https://github.com/solidusio/solidus_support/tree/HEAD)
+
+[Full Changelog](https://github.com/solidusio/solidus_support/compare/v0.6.0...HEAD)
+
+**Closed issues:**
+
+- Could we get a new release? [\#49](https://github.com/solidusio/solidus_support/issues/49)
+
+**Merged pull requests:**
+
+- Use `Spree::Event. activate\_all\_subscribers` when available [\#53](https://github.com/solidusio/solidus_support/pull/53) ([spaghetticode](https://github.com/spaghetticode))
+- Support Rails 5.1.x [\#51](https://github.com/solidusio/solidus_support/pull/51) ([brchristian](https://github.com/brchristian))
+- Remove redundant `solidus\_core` dev dependency [\#50](https://github.com/solidusio/solidus_support/pull/50) ([brchristian](https://github.com/brchristian))
+
 ## [v0.6.0](https://github.com/solidusio/solidus_support/tree/v0.6.0) (2020-07-24)
 
 [Full Changelog](https://github.com/solidusio/solidus_support/compare/v0.5.1...v0.6.0)
@@ -105,7 +119,6 @@
 
 - Rename FactoryBot [\#6](https://github.com/solidusio/solidus_support/pull/6) ([tvdeyen](https://github.com/tvdeyen))
 - Remove unused files [\#5](https://github.com/solidusio/solidus_support/pull/5) ([tvdeyen](https://github.com/tvdeyen))
-- Add a basic spec\_helper for extensions to include [\#2](https://github.com/solidusio/solidus_support/pull/2) ([jhawthorn](https://github.com/jhawthorn))
 
 ## [v0.1.5](https://github.com/solidusio/solidus_support/tree/v0.1.5) (2017-07-27)
 
@@ -118,6 +131,10 @@
 ## [v0.1.3](https://github.com/solidusio/solidus_support/tree/v0.1.3) (2017-07-26)
 
 [Full Changelog](https://github.com/solidusio/solidus_support/compare/v0.1.2...v0.1.3)
+
+**Merged pull requests:**
+
+- Add a basic spec\_helper for extensions to include [\#2](https://github.com/solidusio/solidus_support/pull/2) ([jhawthorn](https://github.com/jhawthorn))
 
 ## [v0.1.2](https://github.com/solidusio/solidus_support/tree/v0.1.2) (2017-07-24)
 
