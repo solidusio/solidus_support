@@ -50,6 +50,11 @@ module SolidusSupport
       # This is needed since they are never explicitly referenced in the application code and
       # won't be loaded by default. We need them to be executed regardless in order to decorate
       # existing classes.
+      #
+      # You should place your decorators in the `app/decorators` folder, within a folder that
+      # describes what is being decorated. For instance, if you're decorating the variant model,
+      # you should place that decorator in
+      # `app/decorators/models/#{extension_name}/spree/variant_decorator.rb`
       def load_solidus_decorators_from(path)
         path.glob('**/*.rb') do |decorator_path|
           require_dependency(decorator_path)
