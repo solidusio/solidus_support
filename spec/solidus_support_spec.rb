@@ -42,4 +42,37 @@ RSpec.describe SolidusSupport do
     end
     # rubocop:enable RSpec/NestedGroups
   end
+
+  describe '.combined_first_and_last_name_in_address?' do
+    subject { described_class.combined_first_and_last_name_in_address? }
+
+    before do
+      allow(Spree).to receive(:solidus_gem_version) do
+        Gem::Version.new(solidus_version)
+      end
+    end
+
+    context 'when Solidus did not have the code to combine addresses fields' do
+      let(:solidus_version) { '2.9.3' }
+
+      it { is_expected.to be_falsey }
+    end
+
+    context 'when Solidus has preference to choose if combine addresses fields' do
+      let(:solidus_version) { '2.10.3' }
+      before do
+        allow(Spree::Config)
+          .to receive(:use_combined_first_and_last_name_in_address)
+          .and_return(true)
+      end
+
+      it { is_expected.to be_truthy }
+    end
+
+    context 'when Solidus only has code to combine addresses fields' do
+      let(:solidus_version) { '3.0.0' }
+
+      it { is_expected.to be_truthy }
+    end
+  end
 end

@@ -21,6 +21,16 @@ module SolidusSupport
       first_version_without_reset.satisfied_by?(Spree.solidus_gem_version)
     end
 
+    def combined_first_and_last_name_in_address?
+      versions_before_preference = Gem::Requirement.new('< 2.10')
+      versions_after_preference = Gem::Requirement.new('>= 3.0.0.alpha')
+
+      return false if versions_before_preference.satisfied_by?(Spree.solidus_gem_version)
+      return true if versions_after_preference.satisfied_by?(Spree.solidus_gem_version)
+
+      Spree::Config.use_combined_first_and_last_name_in_address
+    end
+
     def new_gateway_code?
       first_version_with_new_gateway_code = Gem::Requirement.new('>= 2.3')
       first_version_with_new_gateway_code.satisfied_by?(Spree.solidus_gem_version)
