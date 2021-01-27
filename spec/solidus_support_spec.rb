@@ -59,7 +59,7 @@ RSpec.describe SolidusSupport do
     end
 
     context 'when Solidus has preference to choose if combine addresses fields' do
-      let(:solidus_version) { '2.10.3' }
+      let(:solidus_version) { '2.11.3' }
       before do
         allow(Spree::Config)
           .to receive(:use_combined_first_and_last_name_in_address)

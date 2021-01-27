@@ -22,7 +22,7 @@ module SolidusSupport
     end
 
     def combined_first_and_last_name_in_address?
-      versions_before_preference = Gem::Requirement.new('< 2.10')
+      versions_before_preference = Gem::Requirement.new('< 2.11.0')
       versions_after_preference = Gem::Requirement.new('>= 3.0.0.alpha')
 
       return false if versions_before_preference.satisfied_by?(Spree.solidus_gem_version)
