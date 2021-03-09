@@ -6,6 +6,8 @@ require 'solidus_support/engine_extensions'
 require 'solidus_core'
 
 module SolidusSupport
+  autoload :Decorators, 'solidus_support/decorators'
+
   class << self
     def solidus_gem_version
       ActiveSupport::Deprecation.warn <<-WARN.squish, caller

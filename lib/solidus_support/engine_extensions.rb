@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'solidus_support/decorators'
+
 module SolidusSupport
   module EngineExtensions
     include ActiveSupport::Deprecation::DeprecatedConstantAccessor
@@ -89,11 +91,19 @@ module SolidusSupport
 
         config.autoload_paths += path.glob('*')
 
-        engine_context = self
-        config.to_prepare do
-          engine_context.instance_eval do
-            load_solidus_decorators_from(path)
-          end
+        SolidusSupport::Decorators.autoload_decorators(path.glob('**/*.rb')) do |path|
+          relative_path = path.relative_path_from(Rails.root.join("app/")) # models/acme_corp/order_decorator.rb
+          parts = relative_path.to_s.split(File::SEPARATOR)
+
+          {
+            # remove models/acme_corp/ and _decorator.rb, add spree/
+            # => "Spree::Order"
+            base: (["spree"] + parts[2..-1]).join("/").chomp("_decorator.rb").camelize,
+
+            # remove models/
+            # => "AcmeCorp::Spree::Order::AddFeature"
+            decorator: parts[1..-1].join("/").chomp(".rb").camelize,
+          }
         end
       end
     end
