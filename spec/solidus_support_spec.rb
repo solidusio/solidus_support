@@ -12,35 +12,18 @@ RSpec.describe SolidusSupport do
       end
     end
 
-    context 'with Solidus < 2.3' do
-      let(:solidus_version) { '2.2.1' }
-
-      it { is_expected.to eq(Spree::Gateway) }
-    end
-
-    context 'with Solidus >= 2.3' do
+    context 'with credit_card: false' do
       let(:solidus_version) { '2.3.1' }
 
       it { is_expected.to eq(Spree::PaymentMethod) }
     end
 
-    # rubocop:disable RSpec/NestedGroups
     context 'with credit_card: true' do
       let(:credit_card) { true }
+      let(:solidus_version) { '2.3.1' }
 
-      context 'with Solidus < 2.3' do
-        let(:solidus_version) { '2.2.1' }
-
-        it { is_expected.to eq(Spree::Gateway) }
-      end
-
-      context 'with Solidus >= 2.3' do
-        let(:solidus_version) { '2.3.1' }
-
-        it { is_expected.to eq(Spree::PaymentMethod::CreditCard) }
-      end
+      it { is_expected.to eq(Spree::PaymentMethod::CreditCard) }
     end
-    # rubocop:enable RSpec/NestedGroups
   end
 
   describe '.combined_first_and_last_name_in_address?' do
