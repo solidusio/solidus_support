@@ -1,5 +1,25 @@
 # Changelog
 
+## [v0.8.1](https://github.com/solidusio/solidus_support/tree/v0.8.1) (2021-01-27)
+
+[Full Changelog](https://github.com/solidusio/solidus_support/compare/v0.8.0...v0.8.1)
+
+**Merged pull requests:**
+
+- Fix combined\_first\_and\_last\_name\_in\_address version [\#59](https://github.com/solidusio/solidus_support/pull/59) ([kennyadsl](https://github.com/kennyadsl))
+
+## [v0.8.0](https://github.com/solidusio/solidus_support/tree/v0.8.0) (2021-01-19)
+
+[Full Changelog](https://github.com/solidusio/solidus_support/compare/v0.7.0...v0.8.0)
+
+**Implemented enhancements:**
+
+- Add a method to check if combined address name is being used  [\#58](https://github.com/solidusio/solidus_support/pull/58) ([kennyadsl](https://github.com/kennyadsl))
+
+**Fixed bugs:**
+
+- Fix project' specs [\#57](https://github.com/solidusio/solidus_support/pull/57) ([kennyadsl](https://github.com/kennyadsl))
+
 ## [v0.7.0](https://github.com/solidusio/solidus_support/tree/v0.7.0) (2020-10-28)
 
 [Full Changelog](https://github.com/solidusio/solidus_support/compare/v0.6.0...v0.7.0)
