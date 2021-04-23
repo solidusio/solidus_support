@@ -32,27 +32,38 @@ module SolidusSupport
     end
 
     def new_gateway_code?
-      first_version_with_new_gateway_code = Gem::Requirement.new('>= 2.3')
-      first_version_with_new_gateway_code.satisfied_by?(Spree.solidus_gem_version)
+      ActiveSupport::Deprecation.warn <<-WARN.squish, caller
+        SolidusSupport.new_gateway_code? is deprecated without replacement and will be removed
+        in solidus_support 1.0.
+      WARN
+
+      true
     end
 
     def payment_source_parent_class
-      if new_gateway_code?
-        Spree::PaymentSource
-      else
-        Spree::Base
-      end
+      ActiveSupport::Deprecation.warn <<-WARN.squish, caller
+        SolidusSupport.payment_source_parent_class is deprecated and will be removed
+        in solidus_support 1.0. Please use Spree::PaymentSource instead.
+      WARN
+
+      Spree::PaymentSource
     end
 
     def payment_method_parent_class(credit_card: false)
-      if new_gateway_code?
-        if credit_card
-          Spree::PaymentMethod::CreditCard
-        else
-          Spree::PaymentMethod
-        end
+      if credit_card
+        ActiveSupport::Deprecation.warn <<-WARN.squish, caller
+          SolidusSupport.payment_method_parent_class(credit_card: true) is deprecated and will be removed
+          in solidus_support 1.0. Please use Spree::PaymentMethod::CreditCard instead.
+        WARN
+
+        Spree::PaymentMethod::CreditCard
       else
-        Spree::Gateway
+        ActiveSupport::Deprecation.warn <<-WARN.squish, caller
+          SolidusSupport.payment_method_parent_class(credit_card: false) is deprecated and will be removed
+          in solidus_support 1.0. Please use Spree::PaymentMethod instead.
+        WARN
+
+        Spree::PaymentMethod
       end
     end
 
