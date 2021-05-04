@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'solidus_support/decorators'
+
 module SolidusSupport
   module EngineExtensions
     include ActiveSupport::Deprecation::DeprecatedConstantAccessor
@@ -15,9 +17,11 @@ module SolidusSupport
 
         config.to_prepare(&method(:activate))
 
-        enable_solidus_engine_support('backend') if SolidusSupport.backend_available?
-        enable_solidus_engine_support('frontend') if SolidusSupport.frontend_available?
-        enable_solidus_engine_support('api') if SolidusSupport.api_available?
+        initializer "loading_solidus_decorators" do
+          engine.enable_solidus_engine_support('backend') if SolidusSupport.backend_available?
+          engine.enable_solidus_engine_support('frontend') if SolidusSupport.frontend_available?
+          engine.enable_solidus_engine_support('api') if SolidusSupport.api_available?
+        end
       end
     end
 
@@ -56,6 +60,39 @@ module SolidusSupport
         end
       end
 
+      # Enables support for a Solidus engine.
+      #
+      # This will tell Rails to:
+      #
+      #   * add +lib/controllers/[engine]+ to the controller paths;
+      #   * add +lib/views/[engine]+ to the view paths;
+      #   * load the decorators in +lib/decorators/[engine]+.
+      #
+      # @see #load_solidus_decorators_from
+      def enable_solidus_engine_support(solidus_engine_name)
+        puts "#{self.name} #{solidus_engine_name}"
+        paths['app/controllers'] << "lib/controllers/#{solidus_engine_name}"
+        paths['app/views'] << "lib/views/#{solidus_engine_name}"
+
+        path = root.join("lib/decorators/#{solidus_engine_name}")
+
+        config.autoload_paths += path.glob('*')
+
+        Decorators.autoload_decorators(path.join('**/*.rb')) do |path|
+          relative_path = path.relative_path_from(root.join("lib/")) # models/acme_corp/order_decorator.rb
+          parts = relative_path.to_s.split(File::SEPARATOR)
+          {
+            # remove models/acme_corp/ and _decorator.rb, add spree/
+            # => "Spree::Order"
+            base: (["spree"] + parts[2..-1]).join("/").chomp("_decorator.rb").camelize,
+
+            # remove models/
+            # => "AcmeCorp::Spree::Order::AddFeature"
+            decorator: parts[1..-1].join("/").chomp(".rb").camelize,
+          }
+        end
+      end
+
       private
 
       # Returns the root for this engine's decorators.
@@ -70,31 +107,6 @@ module SolidusSupport
       # @return [Path]
       def solidus_subscribers_root
         root.join("app/subscribers")
-      end
-
-      # Enables support for a Solidus engine.
-      #
-      # This will tell Rails to:
-      #
-      #   * add +lib/controllers/[engine]+ to the controller paths;
-      #   * add +lib/views/[engine]+ to the view paths;
-      #   * load the decorators in +lib/decorators/[engine]+.
-      #
-      # @see #load_solidus_decorators_from
-      def enable_solidus_engine_support(engine)
-        paths['app/controllers'] << "lib/controllers/#{engine}"
-        paths['app/views'] << "lib/views/#{engine}"
-
-        path = root.join("lib/decorators/#{engine}")
-
-        config.autoload_paths += path.glob('*')
-
-        engine_context = self
-        config.to_prepare do
-          engine_context.instance_eval do
-            load_solidus_decorators_from(path)
-          end
-        end
       end
     end
   end
