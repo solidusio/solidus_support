@@ -68,15 +68,26 @@ module SolidusSupport
     end
 
     def frontend_available?
-      defined?(Spree::Frontend::Engine)
+      defined?(Spree::Frontend::Engine) ||
+        rails_config?(:frontend_available, true)
     end
 
     def backend_available?
-      defined?(Spree::Backend::Engine)
+      defined?(Spree::Backend::Engine) ||
+        rails_config?(:backend_available, true)
     end
 
     def api_available?
-      defined?(Spree::Api::Engine)
+      defined?(Spree::Api::Engine) ||
+        rails_config?(:api_available, true)
+    end
+
+    def rails_config?(name, value)
+      return false unless Rails.application
+
+      Rails.configuration.x.respond_to?(:solidus) &&
+        Rails.configuration.x.solidus.respond_to?(name) &&
+        (Rails.configuration.x.solidus.send(name) == value)
     end
   end
 end
