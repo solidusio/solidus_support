@@ -15,9 +15,9 @@ module SolidusSupport
 
         config.to_prepare(&method(:activate))
 
-        enable_solidus_engine_support('backend') if SolidusSupport.backend_available?
-        enable_solidus_engine_support('frontend') if SolidusSupport.frontend_available?
-        enable_solidus_engine_support('api') if SolidusSupport.api_available?
+        enable_solidus_engine_support('backend')
+        enable_solidus_engine_support('frontend')
+        enable_solidus_engine_support('api')
       end
     end
 
@@ -82,17 +82,23 @@ module SolidusSupport
       #
       # @see #load_solidus_decorators_from
       def enable_solidus_engine_support(engine)
-        paths['app/controllers'] << "lib/controllers/#{engine}"
-        paths['app/views'] << "lib/views/#{engine}"
+        initializer "#{name}_#{engine}_paths", before: :initialize_dependency_mechanism do
+          if SolidusSupport.send(:"#{engine}_available?")
+            paths['app/controllers'] << "lib/controllers/#{engine}"
+            paths['app/views'] << "lib/views/#{engine}"
+          end
+        end
 
-        path = root.join("lib/decorators/#{engine}")
+        if SolidusSupport.send(:"#{engine}_available?")
+          path = root.join("lib/decorators/#{engine}")
 
-        config.autoload_paths += path.glob('*')
+          config.autoload_paths += path.glob('*')
 
-        engine_context = self
-        config.to_prepare do
-          engine_context.instance_eval do
-            load_solidus_decorators_from(path)
+          engine_context = self
+          config.to_prepare do
+            engine_context.instance_eval do
+              load_solidus_decorators_from(path)
+            end
           end
         end
       end
