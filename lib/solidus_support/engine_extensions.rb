@@ -2,7 +2,11 @@
 
 module SolidusSupport
   module EngineExtensions
-    include ActiveSupport::Deprecation::DeprecatedConstantAccessor
+    def self.deprecate_constant(const_name, new_constant, message: nil, deprecator: ActiveSupport::Deprecation.instance)
+      class_variable_set(:@@_deprecated_constants, {}) unless class_variable_defined?(:@@_deprecated_constants)
+      class_variable_get(:@@_deprecated_constants)[const_name.to_s] = { new: new_constant, message: message, deprecator: deprecator }
+    end
+
     deprecate_constant 'Decorators', 'SolidusSupport::EngineExtensions'
 
     def self.included(engine)
