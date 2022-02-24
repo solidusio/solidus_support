@@ -68,7 +68,7 @@ module SolidusSupport
     end
 
     def frontend_available?
-      defined?(Spree::Frontend::Engine)
+      defined?(Spree::Frontend::Engine) || defined?(SolidusStarterFrontend)
     end
 
     def backend_available?
