@@ -28,4 +28,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rubocop'
   s.add_development_dependency 'rubocop-rspec'
   s.add_development_dependency 'solidus_dev_support'
+  s.add_development_dependency 'omnes', '~> 0.2.2'
 end
