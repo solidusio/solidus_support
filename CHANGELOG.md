@@ -1,5 +1,20 @@
 # Changelog
 
+## [Unreleased](https://github.com/solidusio/solidus_support/tree/HEAD)
+
+[Full Changelog](https://github.com/solidusio/solidus_support/compare/v0.8.1...HEAD)
+
+**Closed issues:**
+
+- Release 0.5.2  version [\#64](https://github.com/solidusio/solidus_support/issues/64)
+
+**Merged pull requests:**
+
+- Compatibility layer for the legacy/new event system [\#70](https://github.com/solidusio/solidus_support/pull/70) ([waiting-for-dev](https://github.com/waiting-for-dev))
+- Fix dependency on the engines load order when adding paths [\#65](https://github.com/solidusio/solidus_support/pull/65) ([waiting-for-dev](https://github.com/waiting-for-dev))
+- Remove support for Solidus \<= 2.3 [\#62](https://github.com/solidusio/solidus_support/pull/62) ([elia](https://github.com/elia))
+- Update the changelog with the latest releases [\#61](https://github.com/solidusio/solidus_support/pull/61) ([elia](https://github.com/elia))
+
 ## [v0.8.1](https://github.com/solidusio/solidus_support/tree/v0.8.1) (2021-01-27)
 
 [Full Changelog](https://github.com/solidusio/solidus_support/compare/v0.8.0...v0.8.1)
@@ -30,9 +45,9 @@
 
 **Merged pull requests:**
 
-- Use `Spree::Event. activate\_all\_subscribers` when available [\#53](https://github.com/solidusio/solidus_support/pull/53) ([spaghetticode](https://github.com/spaghetticode))
+- Use `Spree::Event. activate_all_subscribers` when available [\#53](https://github.com/solidusio/solidus_support/pull/53) ([spaghetticode](https://github.com/spaghetticode))
 - Support Rails 5.1.x [\#51](https://github.com/solidusio/solidus_support/pull/51) ([brchristian](https://github.com/brchristian))
-- Remove redundant `solidus\_core` dev dependency [\#50](https://github.com/solidusio/solidus_support/pull/50) ([brchristian](https://github.com/brchristian))
+- Remove redundant `solidus_core` dev dependency [\#50](https://github.com/solidusio/solidus_support/pull/50) ([brchristian](https://github.com/brchristian))
 
 ## [v0.6.0](https://github.com/solidusio/solidus_support/tree/v0.6.0) (2020-07-24)
 
@@ -70,7 +85,11 @@
 **Merged pull requests:**
 
 - Load Solidus engine extension files automatically [\#42](https://github.com/solidusio/solidus_support/pull/42) ([aldesantis](https://github.com/aldesantis))
+- Update solidus\_dev\_support [\#41](https://github.com/solidusio/solidus_support/pull/41) ([aldesantis](https://github.com/aldesantis))
+- Replace manual cache checks w/ require\_dependency [\#39](https://github.com/solidusio/solidus_support/pull/39) ([elia](https://github.com/elia))
+- Fixes isse when zeitwerk is not enabled [\#38](https://github.com/solidusio/solidus_support/pull/38) ([softr8](https://github.com/softr8))
 - Deprecate SolidusSupport.solidus\_gem\_version [\#37](https://github.com/solidusio/solidus_support/pull/37) ([kennyadsl](https://github.com/kennyadsl))
+- Spring cleaning [\#33](https://github.com/solidusio/solidus_support/pull/33) ([aldesantis](https://github.com/aldesantis))
 
 ## [v0.4.1](https://github.com/solidusio/solidus_support/tree/v0.4.1) (2020-01-16)
 
@@ -80,13 +99,6 @@
 
 - Should use require\_dependency instead of require/load [\#34](https://github.com/solidusio/solidus_support/issues/34)
 - Add a LICENSE [\#20](https://github.com/solidusio/solidus_support/issues/20)
-
-**Merged pull requests:**
-
-- Update solidus\_dev\_support [\#41](https://github.com/solidusio/solidus_support/pull/41) ([aldesantis](https://github.com/aldesantis))
-- Replace manual cache checks w/ require\_dependency [\#39](https://github.com/solidusio/solidus_support/pull/39) ([elia](https://github.com/elia))
-- Fixes isse when zeitwerk is not enabled [\#38](https://github.com/solidusio/solidus_support/pull/38) ([softr8](https://github.com/softr8))
-- Spring cleaning [\#33](https://github.com/solidusio/solidus_support/pull/33) ([aldesantis](https://github.com/aldesantis))
 
 ## [v0.4.0](https://github.com/solidusio/solidus_support/tree/v0.4.0) (2019-12-16)
 
@@ -115,7 +127,7 @@
 - Add `capybara-screenshot` dependency [\#23](https://github.com/solidusio/solidus_support/pull/23) ([spaghetticode](https://github.com/spaghetticode))
 - Do not reset spree preferences starting from v2.9 [\#22](https://github.com/solidusio/solidus_support/pull/22) ([kennyadsl](https://github.com/kennyadsl))
 - Update Travis config [\#19](https://github.com/solidusio/solidus_support/pull/19) ([aitbw](https://github.com/aitbw))
-- Override Capybara JS driver via `CAPYBARA\_DRIVER` ENV variable [\#18](https://github.com/solidusio/solidus_support/pull/18) ([spaghetticode](https://github.com/spaghetticode))
+- Override Capybara JS driver via `CAPYBARA_DRIVER` ENV variable [\#18](https://github.com/solidusio/solidus_support/pull/18) ([spaghetticode](https://github.com/spaghetticode))
 - Migrate from Poltergeist to Headless Chrome [\#16](https://github.com/solidusio/solidus_support/pull/16) ([aitbw](https://github.com/aitbw))
 - Remove running rubocop on rake task [\#14](https://github.com/solidusio/solidus_support/pull/14) ([kennyadsl](https://github.com/kennyadsl))
 - Cleanup extension [\#13](https://github.com/solidusio/solidus_support/pull/13) ([kennyadsl](https://github.com/kennyadsl))
