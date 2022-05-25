@@ -32,7 +32,7 @@ module SolidusSupport
       # This allows to add event subscribers to extensions without explicitly subscribing them,
       # similarly to what happens in Solidus core.
       def load_solidus_subscribers_from(path)
-        if defined? Spree::Event
+        if SolidusSupport::LegacyEventCompat.using_legacy?
           path.glob("**/*_subscriber.rb") do |subscriber_path|
             require_dependency(subscriber_path)
           end
