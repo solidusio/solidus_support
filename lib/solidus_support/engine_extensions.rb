@@ -82,7 +82,24 @@ module SolidusSupport
       #
       # @see #load_solidus_decorators_from
       def enable_solidus_engine_support(engine)
-        initializer "#{name}_#{engine}_paths", before: :initialize_dependency_mechanism do
+        # In the past, view and controller paths of Solidus extensions were
+        # added at extension loading time. As a result, if an extension
+        # customizing a Solidus engine is loaded before that engine
+        # (for example, the extension is declared before the `solidus_frontend`
+        # engine in the `Gemfile`), then the extension's paths for that Solidus
+        # engine wouldn't be loaded.
+
+        # The initializer below runs before `initialize_cache` because
+        # `initialize_cache` runs 1) after the Solidus engines have already
+        # loaded BUT 2) before Rails has added the paths to `$LOAD_PATH`.
+        # Normally, it would be sufficient to run the initializer below before
+        # the `set_load_path` initializer. However, external gems such as
+        # Deface may also change the load paths immediately before
+        # `set_load_path`. To ensure that our extension paths are not affected
+        # by those gems, we work around those gems by adding our paths before
+        # `initialize_cache`, which is the Rails initializer called before
+        # `set_load_path`.
+        initializer "#{name}_#{engine}_paths", before: :initialize_cache do
           if SolidusSupport.send(:"#{engine}_available?")
             paths['app/controllers'] << "lib/controllers/#{engine}"
             paths['app/views'] << "lib/views/#{engine}"
