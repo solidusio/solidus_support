@@ -1,8 +1,16 @@
 # Changelog
 
-## [Unreleased](https://github.com/solidusio/solidus_support/tree/HEAD)
+## [v0.9.1](https://github.com/solidusio/solidus_support/tree/v0.9.1) (2022-06-01)
 
-[Full Changelog](https://github.com/solidusio/solidus_support/compare/v0.8.1...HEAD)
+[Full Changelog](https://github.com/solidusio/solidus_support/compare/v0.9.0...v0.9.1)
+
+**Merged pull requests:**
+
+- Add extension paths before `initialize_cache` [\#71](https://github.com/solidusio/solidus_support/pull/71) ([gsmendoza](https://github.com/gsmendoza))
+
+## [v0.9.0](https://github.com/solidusio/solidus_support/tree/v0.9.0) (2022-05-25)
+
+[Full Changelog](https://github.com/solidusio/solidus_support/compare/v0.8.1...v0.9.0)
 
 **Closed issues:**
 
