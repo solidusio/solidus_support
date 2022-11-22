@@ -6,22 +6,35 @@ orbs:
   # to change this configuration every time a Solidus version is released
   # or goes EOL.
   solidusio_extensions: solidusio/extensions@volatile
+  slack: circleci/slack@4.9.3
+
+commands:
+  notify:
+      steps:
+        - slack/notify:
+            event: fail
+            template: basic_fail_1
+            branch_pattern: master
 
 jobs:
   run-specs-with-postgres:
     executor: solidusio_extensions/postgres
     steps:
       - solidusio_extensions/run-tests
+      - notify
   run-specs-with-mysql:
     executor: solidusio_extensions/mysql
     steps:
       - solidusio_extensions/run-tests
+      - notify
 
 workflows:
   "Run specs on supported Solidus versions":
     jobs:
-      - run-specs-with-postgres
-      - run-specs-with-mysql
+      - run-specs-with-postgres:
+          context: slack-secrets
+      - run-specs-with-mysql:
+          context: slack-secrets
   "Weekly run specs against master":
     triggers:
       - schedule:
@@ -31,5 +44,7 @@ workflows:
               only:
                 - master
     jobs:
-      - run-specs-with-postgres
-      - run-specs-with-mysql
+      - run-specs-with-postgres:
+          context: slack-secrets
+      - run-specs-with-mysql:
+          context: slack-secrets
