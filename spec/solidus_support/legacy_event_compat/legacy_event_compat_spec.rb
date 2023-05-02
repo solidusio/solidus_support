@@ -2,7 +2,7 @@
 
 require 'omnes'
 
-RSpec.describe SolidusSupport::LegacyEventCompat::Subscriber do
+RSpec.describe SolidusSupport::LegacyEventCompat::Subscriber, if: Spree.solidus_version < Gem::Version.new("4.0.0.dev") do
   subject { Module.new.include(Spree::Event::Subscriber).include(described_class) }
 
   describe '#omnes_subscriber' do
