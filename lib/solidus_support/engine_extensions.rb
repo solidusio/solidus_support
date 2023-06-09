@@ -107,14 +107,15 @@ module SolidusSupport
         end
 
         if SolidusSupport.send(:"#{engine}_available?")
-          path = root.join("lib/decorators/#{engine}")
-
-          config.autoload_paths += path.glob('*')
+          decorators_path = root.join("lib/decorators/#{engine}")
+          controllers_path = root.join("lib/controllers/#{engine}")
+          config.autoload_paths += decorators_path.glob('*')
+          config.autoload_paths += controllers_path.glob('*')
 
           engine_context = self
           config.to_prepare do
             engine_context.instance_eval do
-              load_solidus_decorators_from(path)
+              load_solidus_decorators_from(decorators_path)
             end
           end
         end
