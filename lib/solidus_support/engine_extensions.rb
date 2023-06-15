@@ -110,7 +110,7 @@ module SolidusSupport
           decorators_path = root.join("lib/decorators/#{engine}")
           controllers_path = root.join("lib/controllers/#{engine}")
           config.autoload_paths += decorators_path.glob('*')
-          config.autoload_paths += controllers_path.glob('*')
+          config.autoload_paths << controllers_path if controllers_path.exist?
 
           engine_context = self
           config.to_prepare do
