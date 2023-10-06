@@ -1,32 +1,39 @@
 # frozen_string_literal: true
 
-$:.push File.expand_path('lib', __dir__)
-require 'solidus_support/version'
+require_relative 'lib/solidus_support/version'
 
-Gem::Specification.new do |s|
-  s.name = 'solidus_support'
-  s.version = SolidusSupport::VERSION
-  s.summary = 'Common runtime helpers for Solidus extensions.'
-  s.license = 'BSD-3-Clause'
+Gem::Specification.new do |spec|
+  spec.name = 'solidus_support'
+  spec.version = SolidusSupport::VERSION
+  spec.author = ['John Hawthorn', 'Solidus Team']
+  spec.email = 'contact@solidus.io'
 
-  s.author = 'John Hawthorn'
-  s.email = 'john@stembolt.com'
-  s.homepage = 'https://github.com/solidusio/solidus_support'
+  spec.summary = 'Common runtime helpers for Solidus extensions.'
+  spec.homepage = 'https://github.com/solidusio/solidus_support'
+  spec.license = 'BSD-3'
 
-  s.files = Dir.chdir(File.expand_path(__dir__)) do
-    `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-  end
-  s.test_files = Dir['spec/**/*']
-  s.bindir = "exe"
-  s.executables = s.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  s.require_paths = ["lib"]
+  spec.metadata['homepage_uri'] = spec.homepage
+  spec.metadata['source_code_uri'] = 'https://github.com/solidusio/solidus_support'
+  spec.metadata['changelog_uri'] = 'https://github.com/solidusio/solidus_support/releases'
 
-  s.add_development_dependency 'rails'
-  s.add_development_dependency 'bundler'
-  s.add_development_dependency 'rake'
-  s.add_development_dependency 'rspec-rails'
-  s.add_development_dependency 'rubocop'
-  s.add_development_dependency 'rubocop-rspec'
-  s.add_development_dependency 'solidus_dev_support'
-  s.add_development_dependency 'omnes', '~> 0.2.2'
+  spec.required_ruby_version = Gem::Requirement.new('>= 3.0')
+
+  # Specify which files should be added to the gem when it is released.
+  # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
+  files = Dir.chdir(__dir__) { `git ls-files -z`.split("\x0") }
+
+  spec.files = files.grep_v(%r{^(test|spec|features)/})
+  spec.test_files = files.grep(%r{^(test|spec|features)/})
+  spec.bindir = "exe"
+  spec.executables = files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.require_paths = ["lib"]
+
+  spec.add_development_dependency 'rails'
+  spec.add_development_dependency 'bundler'
+  spec.add_development_dependency 'rake'
+  spec.add_development_dependency 'rspec-rails'
+  spec.add_development_dependency 'rubocop'
+  spec.add_development_dependency 'rubocop-rspec'
+  spec.add_development_dependency 'solidus_dev_support'
+  spec.add_development_dependency 'omnes', '~> 0.2.2'
 end
