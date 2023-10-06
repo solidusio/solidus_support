@@ -20,4 +20,6 @@ module DummyApp
   end
 end
 
+Spree::Config.load_defaults Spree::VERSION
+
 DummyApp::Application.initialize!
