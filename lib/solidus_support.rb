@@ -12,6 +12,10 @@ module SolidusSupport
       @deprecator ||= ActiveSupport::Deprecation.new(Gem::Version.new('1.0'), 'SolidusSupport')
     end
 
+    def solidus_deprecator
+      Spree.solidus_gem_version >= Gem::Version.new('4.2') ? Spree.deprecator : Spree::Deprecation
+    end
+
     def solidus_gem_version
       deprecator.warn <<-WARN.squish, caller
         SolidusSupport.solidus_gem_version is deprecated and will be removed

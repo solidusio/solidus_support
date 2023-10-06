@@ -71,4 +71,11 @@ RSpec.describe SolidusSupport do
       expect(described_class.deprecator.gem_name).to eq("SolidusSupport")
     end
   end
+
+  describe '.solidus_deprecator' do
+    it "references the Solidus deprecator without triggering deprecations" do
+      expect(described_class.solidus_deprecator).to be_a(ActiveSupport::Deprecation)
+      expect(described_class.solidus_deprecator.gem_name).to eq("Solidus")
+    end
+  end
 end
