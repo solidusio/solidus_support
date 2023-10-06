@@ -8,8 +8,16 @@ require 'solidus_core'
 
 module SolidusSupport
   class << self
+    def deprecator
+      @deprecator ||= ActiveSupport::Deprecation.new(Gem::Version.new('1.0'), 'SolidusSupport')
+    end
+
+    def solidus_deprecator
+      Spree.solidus_gem_version >= Gem::Version.new('4.2') ? Spree.deprecator : Spree::Deprecation
+    end
+
     def solidus_gem_version
-      ActiveSupport::Deprecation.warn <<-WARN.squish, caller
+      deprecator.warn <<-WARN.squish, caller
         SolidusSupport.solidus_gem_version is deprecated and will be removed
         in solidus_support 1.0. Please use Spree.solidus_gem_version instead.
       WARN
@@ -33,7 +41,7 @@ module SolidusSupport
     end
 
     def new_gateway_code?
-      ActiveSupport::Deprecation.warn <<-WARN.squish, caller
+      deprecator.warn <<-WARN.squish, caller
         SolidusSupport.new_gateway_code? is deprecated without replacement and will be removed
         in solidus_support 1.0.
       WARN
@@ -42,7 +50,7 @@ module SolidusSupport
     end
 
     def payment_source_parent_class
-      ActiveSupport::Deprecation.warn <<-WARN.squish, caller
+      deprecator.warn <<-WARN.squish, caller
         SolidusSupport.payment_source_parent_class is deprecated and will be removed
         in solidus_support 1.0. Please use Spree::PaymentSource instead.
       WARN
@@ -52,14 +60,14 @@ module SolidusSupport
 
     def payment_method_parent_class(credit_card: false)
       if credit_card
-        ActiveSupport::Deprecation.warn <<-WARN.squish, caller
+        deprecator.warn <<-WARN.squish, caller
           SolidusSupport.payment_method_parent_class(credit_card: true) is deprecated and will be removed
           in solidus_support 1.0. Please use Spree::PaymentMethod::CreditCard instead.
         WARN
 
         Spree::PaymentMethod::CreditCard
       else
-        ActiveSupport::Deprecation.warn <<-WARN.squish, caller
+        deprecator.warn <<-WARN.squish, caller
           SolidusSupport.payment_method_parent_class(credit_card: false) is deprecated and will be removed
           in solidus_support 1.0. Please use Spree::PaymentMethod instead.
         WARN

@@ -2,7 +2,13 @@
 
 RSpec.describe SolidusSupport do
   describe '.payment_method_parent_class' do
-    subject { described_class.payment_method_parent_class(credit_card: credit_card) }
+    subject do
+      allow(described_class.deprecator).to receive(:warn).with(
+        a_string_matching(/payment_method_parent_class\b.* is deprecated/),
+        any_args,
+      )
+      described_class.payment_method_parent_class(credit_card: credit_card)
+    end
 
     let(:credit_card) { nil }
 
@@ -56,6 +62,20 @@ RSpec.describe SolidusSupport do
       let(:solidus_version) { '3.0.0' }
 
       it { is_expected.to be_truthy }
+    end
+  end
+
+  describe '.deprecator' do
+    it "is an instance of ActiveSupport::Deprecation specific to SolidusSupport" do
+      expect(described_class.deprecator).to be_a(ActiveSupport::Deprecation)
+      expect(described_class.deprecator.gem_name).to eq("SolidusSupport")
+    end
+  end
+
+  describe '.solidus_deprecator' do
+    it "references the Solidus deprecator without triggering deprecations" do
+      expect(described_class.solidus_deprecator).to be_a(ActiveSupport::Deprecation)
+      expect(described_class.solidus_deprecator.gem_name).to eq("Solidus")
     end
   end
 end
