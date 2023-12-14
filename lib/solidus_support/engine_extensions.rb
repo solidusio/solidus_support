@@ -3,7 +3,8 @@
 module SolidusSupport
   module EngineExtensions
     include ActiveSupport::Deprecation::DeprecatedConstantAccessor
-    deprecate_constant 'Decorators', 'SolidusSupport::EngineExtensions'
+    deprecator = Spree.respond_to?(:deprecator) ? Spree.deprecator : Spree::Deprecation
+    deprecate_constant 'Decorators', 'SolidusSupport::EngineExtensions', deprecator: deprecator
 
     def self.included(engine)
       engine.extend ClassMethods
