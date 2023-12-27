@@ -3,7 +3,7 @@
 module SolidusSupport
   module EngineExtensions
     include ActiveSupport::Deprecation::DeprecatedConstantAccessor
-    deprecate_constant 'Decorators', 'SolidusSupport::EngineExtensions'
+    deprecate_constant 'Decorators', 'SolidusSupport::EngineExtensions', deprecator: SolidusSupport.deprecator
 
     def self.included(engine)
       engine.extend ClassMethods
