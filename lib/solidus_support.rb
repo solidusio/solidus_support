@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'solidus_support/version'
+require 'solidus_support/deprecator'
 require 'solidus_support/migration'
 require 'solidus_support/legacy_event_compat'
 require 'solidus_support/engine_extensions'
@@ -8,14 +9,6 @@ require 'solidus_core'
 
 module SolidusSupport
   class << self
-    def deprecator
-      @deprecator ||= ActiveSupport::Deprecation.new(Gem::Version.new('1.0'), 'SolidusSupport')
-    end
-
-    def solidus_deprecator
-      Spree.solidus_gem_version >= Gem::Version.new('4.2') ? Spree.deprecator : Spree::Deprecation
-    end
-
     def solidus_gem_version
       deprecator.warn <<-WARN.squish, caller
         SolidusSupport.solidus_gem_version is deprecated and will be removed
