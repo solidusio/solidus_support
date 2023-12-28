@@ -77,6 +77,11 @@ We strongly recommend following this structure and making your extensions so tha
 dependent on anything other than `solidus_core`, only augmenting the functionality of the other
 engines when they are available.
 
+Any decorators placed in `app/decorators` will also be loaded in, and should contain the type
+of object being decorated in the file structure. For instance, if you're decorating the variant
+model, you should structure the file like this:
+`app/decorators/models/#{extension_name}/spree/variant_decorator.rb`
+
 ## Development
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new
