@@ -80,5 +80,9 @@ module SolidusSupport
     def api_available?
       defined?(Spree::Api::Engine)
     end
+
+    def admin_available?
+      defined?(SolidusAdmin::Engine)
+    end
   end
 end

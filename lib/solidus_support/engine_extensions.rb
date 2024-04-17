@@ -18,6 +18,7 @@ module SolidusSupport
         enable_solidus_engine_support('backend')
         enable_solidus_engine_support('frontend')
         enable_solidus_engine_support('api')
+        enable_solidus_engine_support('admin')
       end
     end
 
@@ -109,8 +110,10 @@ module SolidusSupport
         if SolidusSupport.send(:"#{engine}_available?")
           decorators_path = root.join("lib/decorators/#{engine}")
           controllers_path = root.join("lib/controllers/#{engine}")
+          components_path = root.join("lib/components/#{engine}")
           config.autoload_paths += decorators_path.glob('*')
           config.autoload_paths << controllers_path if controllers_path.exist?
+          config.autoload_paths << components_path if components_path.exist?
 
           engine_context = self
           config.to_prepare do
