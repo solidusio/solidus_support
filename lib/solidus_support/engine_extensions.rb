@@ -53,7 +53,7 @@ module SolidusSupport
       # existing classes.
       def load_solidus_decorators_from(path)
         path.glob('**/*.rb') do |decorator_path|
-          require_dependency(decorator_path)
+          load(decorator_path)
         end
       end
 
