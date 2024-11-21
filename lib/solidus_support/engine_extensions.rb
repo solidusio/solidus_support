@@ -2,6 +2,9 @@
 
 module SolidusSupport
   module EngineExtensions
+    # Matches e.g. "Spree::Order.prepend"
+    DECORATED_CLASS_PATTERN = /(?<decorated_class>[A-Z][a-zA-Z:]+)(\.prepend[\s(])/
+
     include ActiveSupport::Deprecation::DeprecatedConstantAccessor
     deprecate_constant 'Decorators', 'SolidusSupport::EngineExtensions', deprecator: SolidusSupport.deprecator
 
@@ -46,14 +49,42 @@ module SolidusSupport
         end
       end
 
-      # Loads decorator files.
+      # Loads decorators.
       #
       # This is needed since they are never explicitly referenced in the application code and
-      # won't be loaded by default. We need them to be executed regardless in order to decorate
-      # existing classes.
-      def load_solidus_decorators_from(path)
-        path.glob('**/*.rb') do |decorator_path|
-          load(decorator_path)
+      # won't be loaded by default. We need them to be executed whenever the decorated class is reloaded.
+      def load_solidus_decorators_from(base_path)
+        # This will be Zeitwerk.
+        autoloader = Rails.autoloaders.main
+        base_path.glob('**/*.rb') do |path|
+          # Match all the classes that are prepended in the file
+          matches = File.read(path).scan(DECORATED_CLASS_PATTERN).flatten
+
+          # Don't do a thing if there's no prepending.
+          next unless matches.present?
+
+          # For each unique match, make sure we load the decorator when the base class is loaded
+          matches.uniq.each do |decorated_class|
+            # Zeitwerk tells us which constant it expects a file to provide.
+            decorator_constant = autoloader.cpath_expected_at(path)
+
+            # Sprinkle some debugging.
+            Rails.logger.debug("Preparing to autoload #{decorated_class} with #{decorator_constant}")
+
+            # If the class to be decorated has already been loaded, it won't be autoloaded later,
+            # so we have to directly load the decorator.
+            if Object.const_defined?(decorated_class)
+              Rails.logger.debug("Loading #{decorator_constant} in order to modify #{decorated_class}")
+              decorator_constant.constantize
+            else
+              # If the class has not been loaded, we can add a hook to load the decorator when it is.
+              # Multiple hooks are no problem, as long as all decorators are namespaced appropriately.
+              autoloader.on_load(decorated_class) do |base|
+                Rails.logger.debug("Loading #{decorator_constant} in order to modify #{base}")
+                decorator_constant.constantize
+              end
+            end
+          end
         end
       end
 
