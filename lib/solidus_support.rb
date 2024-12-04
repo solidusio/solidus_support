@@ -3,7 +3,6 @@
 require 'solidus_support/version'
 require 'solidus_support/deprecator'
 require 'solidus_support/migration'
-require 'solidus_support/legacy_event_compat'
 require 'solidus_support/engine_extensions'
 require 'solidus_core'
 
