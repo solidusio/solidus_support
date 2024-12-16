@@ -108,7 +108,7 @@ module SolidusSupport
           end
         end
 
-        initializer "#{name}_#{engine}_patch_paths", after: "flickwerk.add_paths" do
+        initializer "#{name}_#{engine}_patch_paths", before: "flickwerk.add_paths" do
           patch_paths = root.join("lib/patches/#{engine}").glob("*")
           Flickwerk.patch_paths += patch_paths
         end
