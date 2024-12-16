@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "active_support/deprecation"
+require "flickwerk"
 
 module SolidusSupport
   module EngineExtensions
@@ -9,6 +10,7 @@ module SolidusSupport
 
     def self.included(engine)
       engine.extend ClassMethods
+      engine.include Flickwerk
 
       engine.class_eval do
         solidus_decorators_root.glob('*') do |decorators_folder|
@@ -103,6 +105,17 @@ module SolidusSupport
             engine_context.instance_eval do
               load_solidus_decorators_from(decorators_path)
             end
+          end
+        end
+
+        initializer "#{name}_#{engine}_patch_paths", after: "flickwerk.add_paths" do
+          patch_paths = root.join("lib/patches/#{engine}").glob("*")
+          Flickwerk.patch_paths += patch_paths
+        end
+
+        initializer "#{name}_#{engine}_user_patches", before: "flickwerk.add_patches" do
+          Flickwerk.patches.transform_keys! do |key|
+            key.gsub("Spree.user_class", Spree.user_class_name)
           end
         end
       end
