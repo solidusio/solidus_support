@@ -113,9 +113,11 @@ module SolidusSupport
 
         if SolidusSupport.send(:"#{engine}_available?")
           decorators_path = root.join("lib/decorators/#{engine}")
+          patches_path = root.join("lib/patches/#{engine}")
           controllers_path = root.join("lib/controllers/#{engine}")
           components_path = root.join("lib/components/#{engine}")
           config.autoload_paths += decorators_path.glob('*')
+          config.autoload_paths += patches_path.glob("*")
           config.autoload_paths << controllers_path if controllers_path.exist?
           config.autoload_paths << components_path if components_path.exist?
 
@@ -132,9 +134,9 @@ module SolidusSupport
           Flickwerk.patch_paths += patch_paths
         end
 
-        initializer "#{name}_#{engine}_user_patches", before: "flickwerk.add_patches" do
-          Flickwerk.patches.transform_keys! do |key|
-            key.gsub("Spree.user_class", Spree.user_class_name)
+        initializer "#{name}_#{engine}_user_patches", before: "flickwerk.find_patches" do
+          app.reloader.to_prepare do
+            Flickwerk.aliases["Spree.user_class"] = Spree.user_class_name
           end
         end
       end
