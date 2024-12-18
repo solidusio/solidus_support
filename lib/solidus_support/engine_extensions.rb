@@ -113,10 +113,8 @@ module SolidusSupport
           Flickwerk.patch_paths += patch_paths
         end
 
-        initializer "#{name}_#{engine}_user_patches", before: "flickwerk.add_patches" do
-          Flickwerk.patches.transform_keys! do |key|
-            key.gsub("Spree.user_class", Spree.user_class_name)
-          end
+        initializer "#{name}_#{engine}_user_patches", before: "flickwerk.find_patches" do
+          Flickwerk.aliases["Spree.user_class"] = Spree.user_class_name
         end
       end
     end
