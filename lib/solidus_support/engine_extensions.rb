@@ -27,6 +27,7 @@ module SolidusSupport
     module ClassMethods
       def activate
         load_solidus_decorators_from(solidus_decorators_root)
+        load_solidus_subscribers_from(solidus_subscribers_root)
       end
 
       # Loads decorator files.
