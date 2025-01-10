@@ -27,6 +27,25 @@ module SolidusSupport
     module ClassMethods
       def activate
         load_solidus_decorators_from(solidus_decorators_root)
+        load_solidus_subscribers_from(solidus_subscribers_root)
+      end
+
+      # Loads Solidus event subscriber files.
+      #
+      # This allows to add event subscribers to extensions without explicitly subscribing them,
+      # similarly to what happens in Solidus core.
+      def load_solidus_subscribers_from(path)
+        if SolidusSupport::LegacyEventCompat.using_legacy?
+          path.glob("**/*_subscriber.rb") do |subscriber_path|
+            require_dependency(subscriber_path)
+          end
+
+          if Spree::Event.respond_to?(:activate_all_subscribers)
+            Spree::Event.activate_all_subscribers
+          else
+            Spree::Event.subscribers.each(&:subscribe!)
+          end
+        end
       end
 
       # Loads decorator files.
