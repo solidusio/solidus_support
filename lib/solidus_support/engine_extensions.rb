@@ -104,7 +104,7 @@ module SolidusSupport
         # by those gems, we work around those gems by adding our paths before
         # `initialize_cache`, which is the Rails initializer called before
         # `set_load_path`.
-        initializer "#{name}_#{engine}_paths", before: :initialize_cache do
+        initializer "#{engine_name}_#{engine}_paths", before: :initialize_cache do
           if SolidusSupport.send(:"#{engine}_available?")
             paths['app/controllers'] << "lib/controllers/#{engine}"
             paths['app/views'] << "lib/views/#{engine}"
@@ -129,12 +129,12 @@ module SolidusSupport
           end
         end
 
-        initializer "#{name}_#{engine}_patch_paths", before: "flickwerk.add_paths" do
+        initializer "#{engine_name}_#{engine}_patch_paths", before: "flickwerk.add_paths" do
           patch_paths = root.join("lib/patches/#{engine}").glob("*")
           Flickwerk.patch_paths += patch_paths
         end
 
-        initializer "#{name}_#{engine}_user_patches", before: "flickwerk.find_patches" do
+        initializer "#{engine_name}_#{engine}_user_patches", before: "flickwerk.find_patches" do
           app.reloader.to_prepare do
             Flickwerk.aliases["Spree.user_class"] = Spree.user_class_name
           end
