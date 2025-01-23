@@ -139,6 +139,19 @@ module SolidusSupport
             Flickwerk.aliases["Spree.user_class"] = Spree.user_class_name
           end
         end
+
+        initializer "eager_load_#{engine_name}_#{engine}_patches", after: "flickwerk.find_patches" do |app|
+          # Solidus versions < 4.5 `require` some of their application code.
+          # This leads to hard-to-debug problems with Flickwerk patches.
+          # What this does is eager-load all the patches in a `to_prepare`
+          # hook by constantizing them.
+          # You can override this behavior by setting the environment variable `SOLIDUS_LAZY_LOAD_PATCHES`.
+          if Spree.solidus_gem_version < Gem::Version.new("4.5.0.a") && !ENV["SOLIDUS_LAZY_LOAD_PATCHES"]
+            app.reloader.to_prepare do
+              Flickwerk.patches.each_value { _1.each(&:constantize) }
+            end
+          end
+        end
       end
     end
   end
