@@ -28,6 +28,9 @@ Gem::Specification.new do |spec|
   spec.executables = files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
+  spec.add_dependency 'flickwerk', '~> 0.3.4'
+  spec.add_dependency 'solidus_core', '~> 4.1'
+
   spec.add_development_dependency 'rails'
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'rake'

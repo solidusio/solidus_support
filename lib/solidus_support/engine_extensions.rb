@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "active_support/deprecation"
+require "flickwerk"
 
 module SolidusSupport
   module EngineExtensions
@@ -9,6 +10,7 @@ module SolidusSupport
 
     def self.included(engine)
       engine.extend ClassMethods
+      engine.include Flickwerk
 
       engine.class_eval do
         solidus_decorators_root.glob('*') do |decorators_folder|
@@ -102,7 +104,7 @@ module SolidusSupport
         # by those gems, we work around those gems by adding our paths before
         # `initialize_cache`, which is the Rails initializer called before
         # `set_load_path`.
-        initializer "#{name}_#{engine}_paths", before: :initialize_cache do
+        initializer "#{engine_name}_#{engine}_paths", before: :initialize_cache do
           if SolidusSupport.send(:"#{engine}_available?")
             paths['app/controllers'] << "lib/controllers/#{engine}"
             paths['app/views'] << "lib/views/#{engine}"
@@ -111,9 +113,11 @@ module SolidusSupport
 
         if SolidusSupport.send(:"#{engine}_available?")
           decorators_path = root.join("lib/decorators/#{engine}")
+          patches_path = root.join("lib/patches/#{engine}")
           controllers_path = root.join("lib/controllers/#{engine}")
           components_path = root.join("lib/components/#{engine}")
           config.autoload_paths += decorators_path.glob('*')
+          config.autoload_paths += patches_path.glob("*")
           config.autoload_paths << controllers_path if controllers_path.exist?
           config.autoload_paths << components_path if components_path.exist?
 
@@ -121,6 +125,30 @@ module SolidusSupport
           config.to_prepare do
             engine_context.instance_eval do
               load_solidus_decorators_from(decorators_path)
+            end
+          end
+        end
+
+        initializer "#{engine_name}_#{engine}_patch_paths", before: "flickwerk.add_paths" do
+          patch_paths = root.join("lib/patches/#{engine}").glob("*")
+          Flickwerk.patch_paths += patch_paths
+        end
+
+        initializer "#{engine_name}_#{engine}_user_patches", before: "flickwerk.find_patches" do
+          app.reloader.to_prepare do
+            Flickwerk.aliases["Spree.user_class"] = Spree.user_class_name
+          end
+        end
+
+        initializer "eager_load_#{engine_name}_#{engine}_patches", after: "flickwerk.find_patches" do |app|
+          # Solidus versions < 4.5 `require` some of their application code.
+          # This leads to hard-to-debug problems with Flickwerk patches.
+          # What this does is eager-load all the patches in a `to_prepare`
+          # hook by constantizing them.
+          # You can override this behavior by setting the environment variable `SOLIDUS_LAZY_LOAD_PATCHES`.
+          if Spree.solidus_gem_version < Gem::Version.new("4.5.0.a") && !ENV["SOLIDUS_LAZY_LOAD_PATCHES"]
+            app.reloader.to_prepare do
+              Flickwerk.patches.each_value { _1.each(&:constantize) }
             end
           end
         end
