@@ -23,6 +23,10 @@ module SolidusSupport
       # @param event_name [Symbol]
       # @param payload [Hash<Symbol, Any>]
       def self.publish(event_name, **payload)
+        SolidusSupport.deprecator.warn(
+          "SolidusSupport::LegacyEventCompat::Bus is deprecated and will be removed in solidus_support 1.0." \
+          " Please use Spree::Bus.publish instead."
+        )
         if SolidusSupport::LegacyEventCompat.using_legacy?
           Spree::Event.fire(event_name, payload)
         else
