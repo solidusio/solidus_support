@@ -41,6 +41,10 @@ module SolidusSupport
       end
 
       def self.included(legacy_subscriber)
+        SolidusSupport.deprecator.warn(
+          "SolidusSupport::LegacyEventCompat::Subscriber is deprecated and will be removed in solidus_support 1.0." \
+          " Please `include Omnes::Subscriber` in `#{legacy_subscriber.name}` instead."
+        )
         legacy_subscriber.define_singleton_method(:omnes_subscriber) do
           @omnes_subscriber ||= Class.new.include(::Omnes::Subscriber).tap do |subscriber|
             legacy_subscriber.event_actions.each do |(legacy_subscriber_method, event_name)|
