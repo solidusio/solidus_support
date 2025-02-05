@@ -129,18 +129,18 @@ module SolidusSupport
           end
         end
 
-        initializer "#{engine_name}_#{engine}_patch_paths", before: "flickwerk.add_paths" do
+        initializer "#{engine_name}_#{engine}_patch_paths" do
           patch_paths = root.join("lib/patches/#{engine}").glob("*")
           Flickwerk.patch_paths += patch_paths
         end
 
-        initializer "#{engine_name}_#{engine}_user_patches", before: "flickwerk.find_patches" do
+        initializer "#{engine_name}_#{engine}_user_patches" do |app|
           app.reloader.to_prepare do
             Flickwerk.aliases["Spree.user_class"] = Spree.user_class_name
           end
         end
 
-        initializer "eager_load_#{engine_name}_#{engine}_patches", after: "flickwerk.find_patches" do |app|
+        initializer "eager_load_#{engine_name}_#{engine}_patches" do |app|
           # Solidus versions < 4.5 `require` some of their application code.
           # This leads to hard-to-debug problems with Flickwerk patches.
           # What this does is eager-load all the patches in a `to_prepare`
