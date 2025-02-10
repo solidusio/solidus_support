@@ -1,3 +1,5 @@
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/solidusio/solidus_support/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/solidusio/solidus_support/tree/main)
+
 # SolidusSupport
 
 This gem contains common runtime functionality for Solidus extensions.
