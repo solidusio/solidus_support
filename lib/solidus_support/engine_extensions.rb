@@ -37,16 +37,16 @@ module SolidusSupport
       # This allows to add event subscribers to extensions without explicitly subscribing them,
       # similarly to what happens in Solidus core.
       def load_solidus_subscribers_from(path)
-        if SolidusSupport::LegacyEventCompat.using_legacy?
-          path.glob("**/*_subscriber.rb") do |subscriber_path|
-            require_dependency(subscriber_path)
-          end
+        return unless SolidusSupport::LegacyEventCompat.using_legacy?
 
-          if Spree::Event.respond_to?(:activate_all_subscribers)
-            Spree::Event.activate_all_subscribers
-          else
-            Spree::Event.subscribers.each(&:subscribe!)
-          end
+        path.glob("**/*_subscriber.rb") do |subscriber_path|
+          require_dependency(subscriber_path)
+        end
+
+        if Spree::Event.respond_to?(:activate_all_subscribers)
+          Spree::Event.activate_all_subscribers
+        else
+          Spree::Event.subscribers.each(&:subscribe!)
         end
       end
 
@@ -136,7 +136,11 @@ module SolidusSupport
 
         initializer "#{engine_name}_#{engine}_user_patches" do |app|
           app.reloader.to_prepare do
-            Flickwerk.aliases["Spree.user_class"] = Spree.user_class_name
+            Flickwerk.aliases["Spree.user_class"] = if Spree.respond_to?(:user_class_name)
+                                                      Spree.user_class_name
+                                                    else
+                                                      Spree.user_class.name
+                                                    end
           end
         end
 
