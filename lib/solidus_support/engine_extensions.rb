@@ -136,7 +136,11 @@ module SolidusSupport
 
         initializer "#{engine_name}_#{engine}_user_patches" do |app|
           app.reloader.to_prepare do
-            Flickwerk.aliases["Spree.user_class"] = Spree.user_class_name
+            Flickwerk.aliases["Spree.user_class"] = if Spree.respond_to?(:user_class_name)
+                                                      Spree.user_class_name
+                                                    else
+                                                      Spree.user_class.name
+                                                    end
           end
         end
 
