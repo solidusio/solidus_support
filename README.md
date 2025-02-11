@@ -9,26 +9,6 @@ If you are looking for development tools instead, see
 
 ## Usage
 
-### `SolidusSupport::Migration`
-
-Rails >= 5 introduced the concept of specifying what Rails version your migration was written for,
-like `ActiveRecord::Migration[5.0]`. Not specifying a version is deprecated in Rails 5.0 and removed
-in Rails 5.1. This wasn't backported to Rails 4.2, so we provide this helper to return the right
-parent class:
-
-``` ruby
-# On Rails 4.2
-SolidusSupport::Migration[4.2] # returns `ActiveRecord::Migration`
-SolidusSupport::Migration[5.0] # errors
-
-# On Rails 5.0
-SolidusSupport::Migration[4.2] # same as `ActiveRecord::Migration[4.2]`
-SolidusSupport::Migration[5.0] # same as `ActiveRecord::Migration[5.0]`
-```
-
-There's no reason to use `SolidusSupport::Migration[5.0]` over `ActiveRecord::Migration[5.0]`, but
-it is provided.
-
 ### Engine extensions
 
 This extension provides a module that decorates `Rails::Engine` to seamlessly support autoloading
