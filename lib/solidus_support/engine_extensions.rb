@@ -130,8 +130,10 @@ module SolidusSupport
         end
 
         initializer "#{engine_name}_#{engine}_patch_paths" do
-          patch_paths = root.join("lib/patches/#{engine}").glob("*")
-          Flickwerk.patch_paths += patch_paths
+          if SolidusSupport.send(:"#{engine}_available?")
+            patch_paths = root.join("lib/patches/#{engine}").glob("*")
+            Flickwerk.patch_paths += patch_paths
+          end
         end
 
         initializer "#{engine_name}_#{engine}_user_patches" do |app|
