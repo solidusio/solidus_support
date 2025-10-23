@@ -113,11 +113,9 @@ module SolidusSupport
 
         if SolidusSupport.send(:"#{engine}_available?")
           decorators_path = root.join("lib/decorators/#{engine}")
-          patches_path = root.join("lib/patches/#{engine}")
           controllers_path = root.join("lib/controllers/#{engine}")
           components_path = root.join("lib/components/#{engine}")
           config.autoload_paths += decorators_path.glob('*')
-          config.autoload_paths += patches_path.glob("*")
           config.autoload_paths << controllers_path if controllers_path.exist?
           config.autoload_paths << components_path if components_path.exist?
 
@@ -132,6 +130,7 @@ module SolidusSupport
         initializer "#{engine_name}_#{engine}_patch_paths" do
           if SolidusSupport.send(:"#{engine}_available?")
             patch_paths = root.join("lib/patches/#{engine}").glob("*")
+            config.autoload_paths += patch_paths
             Flickwerk.patch_paths += patch_paths
           end
         end
